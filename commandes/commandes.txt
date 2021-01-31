@@ -1,0 +1,38 @@
+Structure TERMIOS, on accede du shell comme suit :
+$> stty -a
+
+
+Shell : est une interface GUI, qui permet de lancer des programmes
+      BASH, ZSH : SH
+      ShellChec
+
+GUI : Graphical user interface qui renferme un pty et qui l'instancie au niveau du noyau
+
+$> ls |grep ".c" : tout les fichier .c
+$> echo "plop" > toto : redirection de echo
+$> grep "pl" < ./toto : recherche pl dans titi
+
+
+script sh : "ti.sh"
+-----------
+#!/bin/sh : ca s'appelle le shebang
+execution :
+	  1- chmod +x ./ti.sh : on le rend executable
+	  2- sh ./ti.sh
+
+$> true
+$> echo $?
+0
+pour fase c'est 1.
+
+
+$> echo $PWD : affiche le répértoire courant
+$> export PATH=$PWD:$PATH
+
+Ajout alias
+-----------
+$> alias ll="ls-l"
+$> vim ~/.zshrc : répértoire ou on peut ajouter ou modifier des alias
+Et c'est maintenu au redémarrage
+
+ln : lien symbolique, c'est comme un raccourcie
