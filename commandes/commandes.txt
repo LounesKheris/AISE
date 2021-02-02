@@ -1,14 +1,14 @@
-Structure TERMIOS, on accede du shell comme suit :
+Structure TERMIOS, on accede au shell comme suit :
 $> stty -a
 
 
 Shell : est une interface GUI, qui permet de lancer des programmes
       BASH, ZSH : SH
-      ShellChec
+      ShellCheck
 
 GUI : Graphical user interface qui renferme un pty et qui l'instancie au niveau du noyau
 
-$> ls |grep ".c" : tout les fichier .c
+$> ls | grep ".c" : tout les fichier .c
 $> echo "plop" > toto : redirection de echo
 $> grep "pl" < ./toto : recherche pl dans titi
 
@@ -36,3 +36,60 @@ $> vim ~/.zshrc : répértoire ou on peut ajouter ou modifier des alias
 Et c'est maintenu au redémarrage
 
 ln : lien symbolique, c'est comme un raccourcie
+-----
+test : test une egalité
+$>test "a" = "a"
+$>echo $?
+0 : vrai 
+$>test "a" = "b"
+$>echo $?
+1 : faux
+
+find : chercher des fichier ou autres
+------
+$> find . -iname "*.png" : cherche tous les fichiers .png
+
+df : voir l'espace libre dans le disuque dur
+-----
+$> df -H
+$>lsblk : lister les partitions
+
+-ulimit : 
+---------
+$> ulimit -a : les limites du systéme
+
+-bc : calculatrice
+-----
+$> echo "3+4" | bc
+
+-who : qui s'est connécté sur la machine actuelle
+------
+
+-ps : lister les processus en cours d'execution 
+-----
+
+-htop/top: afficherles ressources consommées....
+----------
+
+-wc : compte le nombre de lettre 
+-----
+$> echo "lounes" | wc -c
+7 
+: car 6 +1 caractére de retour à la ligne
+
+-/bi/ls *.png | xargs rm : supprime tout les fichier .png
+--------------------------
+
+
+**Processus : 
+est une instance de programme, Les processus s'executent de maniére concurrente.
+-Tout processus a un parents sauf init.
+-chaque processus a un ID : PID
+-chaque processus contient au moin un thread, n'ont pas de PID, ils ont un tid
+-chaque processus appartient à un utilisateur
+-chaque thread contient une pile et contient la chaine d'execution
+-chaque processus a un certain nombre de fichiers qui peuvent etre ouverts
+
+*- QUand on crée un thread dans un processus, il a la meme mémoire, et la méme vision de la mémoire, il peut taper n'importe où dans la mémoire de son processus. Donc ils sont en mémoire partagée.
+De plus un thread partage le meme desriptif de fichier, c'est a dire s'il y a un fichier qui a été ouvert avec un open, on peut passer le descriptif de fichier à l'autrethread pour pouvoir lire dedans.
+

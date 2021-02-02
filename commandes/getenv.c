@@ -9,17 +9,11 @@
 
 */
 
-int main(int argc, char const argv[], char const *envp[]){
-  char* path = getenv("PATH");
-  if(path){
-    printf("%s",path);
-  }
+int main(int argc, char const *argv[], char const *envp[]){
 
-  printf("-------------------------------------");
-  char **cur = envp;
-  do{
-    printf("%s\n", *cur);
-  }while(*cur++);
-    
+  char *path = getenv("PATH");
+  if(path){
+    printf("%s\n", path);
+  }
   return 0;
 }
