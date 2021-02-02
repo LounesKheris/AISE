@@ -1,4 +1,4 @@
-/***********************
+﻿/***********************
 -Initiation à openMP
 -La boucle représente le traitement 
  de defférents éléments de maniére sequentielle
@@ -6,7 +6,7 @@
 
 #include<stdio.h>
 #include<stdlib.h>
-#include"rdtsc.h"
+#include"../rdtsc.h"
 
 int main(int argc, char const *argv[]){
   if(argc!=2){

@@ -1,4 +1,4 @@
-/***********************
+﻿/***********************
 On va modifier openMP1.c pour que 
 l'execution soit de maniére simultané
  **********************/
@@ -6,7 +6,7 @@ l'execution soit de maniére simultané
 #include<stdio.h>
 #include<stdlib.h>
 #include<omp.h>
-#include"rdtsc.h"
+#include"../rdtsc.h"
 
 /*inclire omp.h qui contient les fonction dont "omp_get_thread_num"
 qui permet de cinnaitre le numéro du thread actuel 

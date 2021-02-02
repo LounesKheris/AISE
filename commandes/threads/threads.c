@@ -9,12 +9,17 @@ gettid(void){
   return syscall(SYS_gettid);
 }
 
+void foo(){
+      int a;
+      printf("coucou de %ld dans process %ld my a is %p\n", gettid(), getpid(),&a);
+      sleep(1);
+
+}
 int main(int argc, char ** argv){
   #pragma omp parallel
   {
     while(1){
-      printf("coucou de %ld dans process %ld\n", gettid(), getpid());
-      sleep(1);
+      foo();
     }
   }
 
