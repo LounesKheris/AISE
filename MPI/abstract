@@ -1,0 +1,55 @@
+Presenter les modéles de programmation paralléle: openMP, MPI
+
+Introduction : pourquoi utilise t on ces modéles ?
+1- evolution des architectures des processeurs, augmentation de la fréquence
+Ca augmente enormément, arriver en limite en terme de consomation electrique et dissipation de chaleur, on a des supercalculateur a 100 wattes, arriver à les refroidire, c'est compliqué.
+**plus de parallélisme pour augmenter la puissance des processeurs !
+1- Systéme à mémoire partagé : Un noeud de calcul : Ordinateur traditionnel
+Il met en jeux plusieurs ressources de calcul qui ont de la mémoire partagé de maniére physique ou de maniére logiciel.
+
+/* Sont des systéme ** SMP (Symmetrical Multi-processing)
+     	 	    ** NUMA (Non-Uniform Memory Access)
+
+Diff : c'est la hiérarchie
+*En SMP, tout les processeur accéde à n'importe quelle case mémoire en un temps uniforme, de maniére complétement symétrique
+avec NUMA, le temps d'accés dépend du placement des données dans celle ci, si on accéde a une donnée qui est sur un banc mémoire qui n'est pas géré par le processeur, on aura un temps d'accés beaucoup plus important
+**géré par le processeur** : y a des controleur mémoire sur les processeur, donc c'est le processeur qui pilote la mémoire.
+**QUand on a plusieurs processeurs : plusieur controleurs mémoire**
+Important : pour accéder àun banc mémoire qui est géré par un processeur distant, on va utilisé un mécanisme d'inter-connexion intra-noeud mais inter-processeur qui nous permettra d'accéder aux donnée, donc on va avoir u  impact sur la latence et le débit, temps d'accés plus lent et débit plus faible.
+Cas 1 : cpu 0 accéde à d1 qui est dans son banc mémoire: temps d'accé = T
+Cas 2 : cpu 0 accéde à d1 qui n'est pas dans son banc mémoire: temps d'accé = f*T: ou f est un facteur NUMA : le temps de degradation : nous sommes pas en local.
+
+2-Processus : une mémoire d'un processus se decompose en :
+
+-le code : relative au code
+-variables global
+-Tas : tout ce qui est alloué par malloc et libéré par free
+-Pile
+
+Le Tas qui monte, la pile desced : une page inaccéssible(frontiére) qui permet de controler des phénoménes de stackoverflow, et éviter que la pile ecrase le tas. Ca arrive fréquemment dans es architecture 32bits mais pas sur 64 bits car l'espace d'@ est immense. Donc si la pile grossie, arrive a cette page innaccessible et retourne un segfault.
+
+Associé à cet espace d'adressage, il y a un certain nombre de registe qui vont étre utilisé par le processeur :
+---**-- SP : stackPointer : qui nous dit à quel endroit on est dans la pile
+---**-- IP : Instruction IP : qui nous dit à quel endroit on est dans le code
+---**-- FR 1, FR n, IR n : qui permettent de faire des calculs.
+
+_______________________
+$> cat /proc/self/maps |
+_______________________|
+
+--Processus multithread : tout est mélangé : le tas peut ecrire sur les piles threads 1 et 2.
+
+3- Evolution supercalculateur :
+**- machines vectorielles : Cray, ILLIAC : 1976 : ca coute cher
+**- Introduction des machines paralléles : coutent moin chere
+
+4- Processeurs multicores :
+
+--Broadwell EX 24-core-die : 24 coeurs: 2 anneaux de 12 coeurs chaqu'un, on va avoir des effets NUMA
+--Skylake-SP 28-core die : maillage + controleurs mémoires.
+
+--Intel KNL : on a jusqu'a 72 coeurs, plusieurs  controleurs mémoires, 2blocs de controleurs mémoire + MCDRAM : de la mémoire sur le socket(avantages : débit plus important)
+
+--ARM : THUNDER X2 : 
+
+ 
