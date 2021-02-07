@@ -50,6 +50,21 @@ _______________________|
 
 --Intel KNL : on a jusqu'a 72 coeurs, plusieurs  controleurs mémoires, 2blocs de controleurs mémoire + MCDRAM : de la mémoire sur le socket(avantages : débit plus important)
 
---ARM : THUNDER X2 : 
+--ARM : THUNDER X2 : est un processeur ARM orienté calcul scientifique
+on a plusieurs controleurs mémoires, on a plusieurs noeuds NUMA
 
- 
+
+*******Exploter les processeurs multicores *********
+quand on fait passer une application séquentielle d'une machine à une autre plus performante, le gain en terme de perf est approximativement 10%, donc on doit paralléliser le code
+
+Si on parallélise pas correctement, on va se retrouver avec la loi d'Amdahl, cette loi dit que si on a un nombre de processeurs infini, le temps de notre code est le temps qui n'a pas été parallélisé.
+un codequi dure 100s, on a parallélisé 90s de temps d'execution, sur un nombre infini de coeurs, notre app au lieu de prendre 100s, prend 10s, on aura un speedup de 10.
+
+
+*****Architecture NVIDIA******
+-on a des coeurs d'ordre de milliers
+-4 controlleurs mémoires de chaque coté qui vont se connecter à de la  mémoire rés rapide avec une capacité qui est faible par rapport a la mémoire standard type DDR
+-Des liens NVLINK : qui permet d'interconnecter des cartes NVIDIA entre elles(intranoeud)
+-PCI express : permet de connecter la carte au processeur et au réseau
+si c'est internoeud, on est obliger de passer par le PCI EXPRESS.
+

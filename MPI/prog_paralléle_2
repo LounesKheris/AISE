@@ -1,0 +1,70 @@
+*Tache : travail a faire
+*thread : implémentation d'une tache
+*processus : instance de prog, ensemble de thread(multithread)
+*calcul paralléle : decouper un prog en plusieurs taches s'executant en meme temps afin d'améliorer le temps d'execution
+
+		    	     ****Parallélisme****
+
+**-Prog Seq : toute instruction ne peut commencer tant la précédente n'a pas terminé
+**-Prog par : On a plusieurs processeurs ou coeurs, toutes les instructions sont éxécutées simmultaneiment
+
+Concurrence : 
+- taches paralléles simultanées en alternées
+- Les taches oeuvent accéder à des données communes et les modifier ""Section critque""
+
+Communication : assurer la corréance des données
+
+TYPES DE PARALLELISME :
+------------------------
+ 
+1**- parallélisme de controle : faire plusieurs choses à la fois
+	MPMP MIMP ILP
+c'est le compilateur qui gére ce type de parallélisme
+
+2**- parallélisme de flux : tout ce qui est lié au pipeline, on va traiter l'opération suivante tant que la precedent n'a pas encore terminé, 
+si la suivant n'a pas besoin de la precedent, on n'a pas a l'attendre.
+C'été massivement utilisé sur les architectures vectorielles, aussi sur les archi scalaire particuliérement le pentium4,
+ca permet artificiellement d'augmenter la fréquence.
+c'est le compilateur qui gére ce type de parallélisme
+
+3**- parallélisme de données : SPMD (single program multiple data)
+on va executer globalement la meme chose mais sur des données différentes
+
+
+-**- Paradigme de parallélisation -**-
+
+1**- Modéle de prog à mémoire distribuée : 
+
+PVM : bib portable d'echange de msg
+MPI est apparu (msg passing interface) : standard
+
+2**- Modéle de prog à mémoire partagée : 
+/Les taches ont la meme visibilité de la mémoire/
+-> Avantage : puisqu'on a de la visibilité donc c'est facile d'accéder aux données
+-> Inconvenients : puisqu'on a de la visibilité, c'est facile d'accéder aux données au mauvais moment ou au mauvais endroit 
+
+-il faut gérer les concurences mémoire
+
+API : POSIX, OPENMP
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,21 @@
+************ Communication point à point **************
+
+Un message est caractérisé par une enveloppe qui contient :
+-Tache expeditrice
+-tache destinataire
+-données à échanger
+
+Protocole :
+expéditeur : envoit le msg
+-> send
+Destinataire : reçoit le msg
+-> recieve
+
+**Soit deux tache T1 et T0 :
+
+out |-> T0 : send(adr_send, nb_elt, T1);
+in  |<- T1 : recieve(adr_recv, nb_elt, T0);
+
+/* le bloc de données envoyé : est une copie du buffer d'envois vers le buffer de reception, comme T1 recoit tout et continue leurs travaille  */
+
+

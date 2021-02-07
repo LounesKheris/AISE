@@ -1,0 +1,57 @@
+*************************** MPI : Message Passing INterface ********************
+
+Est une API de Haute Niveau qui permet de faire de la prog paralléle avec des messages
+Implémentation : c'est une bibiothéque qu'on applique au LINK
+interface : C C++ FORTRAN
+
+adapté a la prog sur archi distribuée
+MPI 1.3 La plus utilisée
+
+Version 1: 1992
+
+Permet d'utiliser des milliers de coeurs afin d'executer des taches en paralléle
+Chaque constructeur implemnte MPI de facon optimisé sur leurs machines
+
+MPI : permet de :
+-Gérer l'environnement d'execution
+-Les communications point à point
+-Des communication collectives
+
+***************** Compilation avec MPI ********************
+ Le processus de compilation c'est comme pour n'importe quelle bibliothéque, on
+ va mettre les -I, -L, -l, sauf dans le cas de MPI, on va avoir plusieurs bib à
+ linker, donc on nous donne dans les implémentation mpi une commande MPICC :  
+
+mpicc : script de compile, qui permet de compiler facilement notre code avec du mpi sans se poser la question de quel -L par exemple je dois mettre, il encapsule tout.
+
+$>mpicc -o hello hello.c
+
+à la main :
+$> gcc -I/dir/mpi/inclide -o hello hello.c -L/dir/mpi/lib -lmpi
+
+**Lancement : on utilise un lanceur qui permet de lancer plusieurs processus
+
+un script mpirun:
+$> mpirun -np 4 ./hello : permet de lancer 4 instances du programme ou 4 procesus, et chaqu'un se lance indépendemment des autres.
+
+Et tout ces 4 processus vont faire partir d'un communicateur, il s'appelle MPI_COMM_WORLD
+   
+******* Communicateur ********
+c'est un ensemble de processus avec des contextes de communication
+
+On a lancer en paralléle un job, mais on ne sait pas commbien on a de processus et comment les identifier et surtout on nesait pas les faire communiquer entre eux.
+
+
+****Nombre de processus ****
+int MPI_Comm_size(MPI_Comm comm, int *size) : le nombre de processus dans ce comminicateur
+
+
+**** rang d'un processus ****
+ Savoir quel identifiant pour le processus
+ la bib MPI associe un numéro entre 0 et N-1, N etant la taille du communicateur
+
+int MPI_Comm_rank(MPI_Comm comm, int *rank);
+
+
+
+
