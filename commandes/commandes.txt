@@ -90,6 +90,95 @@ est une instance de programme, Les processus s'executent de maniére concurrente
 -chaque thread contient une pile et contient la chaine d'execution
 -chaque processus a un certain nombre de fichiers qui peuvent etre ouverts
 
-*- QUand on crée un thread dans un processus, il a la meme mémoire, et la méme vision de la mémoire, il peut taper n'importe où dans la mémoire de son processus. Donc ils sont en mémoire partagée.
-De plus un thread partage le meme desriptif de fichier, c'est a dire s'il y a un fichier qui a été ouvert avec un open, on peut passer le descriptif de fichier à l'autrethread pour pouvoir lire dedans.
+*- Quand on crée un thread dans un processus, il a la meme mémoire, et la méme vision de la mémoire, il peut taper n'importe où dans la mémoire de son processus. Donc ils sont en mémoire partagée.
+De plus un thread partage le meme desriptif de fichier, c'est a dire s'il y a un fichier qui a été ouvert avec un open, on peut passer le descriptif de fichier à l'autre thread pour pouvoir lire dedans.
 
+
+***- Vision connonique d'un process -***
+ 
+-Il a une entrée standard Srdin, et une sortie et erreur standard Stdout, Stderr
+-Il a un environnement, qui sont toutes les variables d'environnement: getenv
+-un repertoire courant : getcwd
+-UID, GID
+-et c'est une image projeté en mémoire
+
+
+
+**-** Fork : permet de créer un processus fils
+**-** wait : Ca attent qu'un processus change d'état
+**-** waitpid : Ca attend un pid particulier
+**-** getpid : recupére le pid du processus courant
+**-** getppid : recupére de pid du parent
+
+commandes :
+$> ps : on voit les processus du shell courant
+$> ps au : on voit tout les processus sur la machine
+$> ps aux : on voit tout les processus de tout le monde
+
+/*/: a : tous les processus
+/*/: u : tous les utilisateurs
+/*/: x : processus san terminal attaché
+
+
+
+**Avoir la liste des signaux :
+$> kill -l
+$> pkill vim : tout tout les vim, equivo à kill -a
+
+$> kill-2 58200 : -2 : sigint ou -9 sigkill, pid process : 58200
+
+**lancer un prcessus en arriére plan :
+$> sleep 5 & : va etre en arriére plan pendant 2 secondes
+
+**atendre un processuus en arriére plan :
+$> wait
+
+**LIster les processus en arriére plan
+$> jobs
+
+---------------
+pgrep : cherche les pid d'un processus
+Exemple : $> pgrep emacs
+58422
+
+kill : tuer un processus
+Exemple : $> kill 58422        ->: emacs tué
+
+---------------
+
+$> tree -L 1 /
+
+resultat :
+-bin  : binaire du systéme
+-boot : l'image du noyau, ce qui est chargé au demarrage
+-dev  : tout les devices exposés par le noyau, y compri les pty, tout le materiel, disque dure ....
+-etc  : pour les fichier de configuration, c'est là qu'on peut éditer tout les fichier de configuration de la machine
+-home : dossier personnel
+-lib  : bib systéme, de tout les programme de la machine
+-media: c'est les points de montage
+-opt  : on met les choses qu'on veut installer à tout le monde
+-proc : concernant le processeur
+
+---------------
+
+changer le proprio d'un fichier
+$> chown lounes ./titi : changer l'utilisateur du fichier pour lounes
+$> chgrp grplounes ./titi : changer pour grplounes
+$> chown root:root ./titi : changer l'utilisateur et le groupe à la fois
+
+
+$> cat /etc/group : te donne tout les group sur le systéme
+$> cat /etc/passwd : // user
+
+
+<---------------------------------------------------------------------->
+
+$> lsblk : te donne toutes les partitions disque dur sur ta machine 
+
+
+
+
+
+
+
+ 
