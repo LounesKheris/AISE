@@ -1,0 +1,10 @@
+**************IO PROCESSUS ET OPC SYSTEM********************
+
+1- I/O POSIX
+
+***-*** DESCRIPTEUR DE FICHIER "BAS NIVEAU" ***-***
+Ça permet d'ouvrir un fichier(droit, lire, ecrire);
+
+*Les descripteur de ficheir
+-STDIN, stdout
+
