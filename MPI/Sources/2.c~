@@ -1,7 +1,0 @@
-//********Nombre total de processus**********
-#include<stdio.h>
-#include<mpi.h>
-
-int main(int argc, char **argv){
-  
-}

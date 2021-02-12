@@ -6,5 +6,43 @@
 Ça permet d'ouvrir un fichier(droit, lire, ecrire);
 
 *Les descripteur de ficheir
--STDIN, stdout
+-Stdin(0) : entrée standard : STDIN_FILENO
+-Stdout(0): sortie standard : STOUT_FILENO
+-Stderr(0): sortie d'erreur standard : STERR_FILENO
 
+*CRÉER UN DESCRIPTEUR :
+-open -> fichier
+-pipe -> flux
+-socket ->connexion reseau
+
+
+
+READ :
+------
+     -*EOF : la fin du fichier : renvoie 0
+     -*>0  : renvoie la valeure qui restait ou celle qu'on a demandé jusqu'à size,Ça pourait étre moin que size d'où l'interet de récupérer la valeure de retour read sinon on ne sarait pas combien q'uon a lu valide
+     -*<0  : Sot :
+     	   **errno = EINTR : on a été interrompu
+	   **errno = EAGAIN: on a mit le descripteur de fichier en non bloquant O_NONBLOCK
+
+
+write :
+-------
+      -* >0 : N bytes ont été ecrit et peut etre moin que SIZE
+      -* <0 ! erreur
+      	 --* errno == EINTR : interrompu par un signal 
+	 --* errno == EAGAIN : fd O_NONBLOCK
+
+seek : lseek(fd, offset, whence)
+------
+offset : c'est le décalage : à quelle offset on est ! "000000070"
+
+whence : 
+-* SEEK_SET : ca permet de dire d'aller directement à un certain octet
+-* SEEK_CUR : ON ADDITION L'OFFSET À L'OFFSET COURANT
+-* SEEK_END: l'offset de fin + paramétre offset
+
+
+Apend : O_APPEND :
+------------------
+le fichier est ouvert en mode ajout, l'offset du fichier est positionné à la fin, comme si il a fait appel à lssel.
