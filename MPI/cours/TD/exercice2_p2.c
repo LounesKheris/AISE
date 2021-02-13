@@ -1,0 +1,30 @@
+#include<stdio.h>
+#include<mpi.h>
+#include<unistd.h>
+
+#define MAX 10
+
+int main(int argc, char ** argv){
+  int rk, i, s0;
+  int tab[MAX];
+
+  MPI_Init(&argc, &argv);
+  MPI_Comm_rank(MPI_COMM_WORLD, &rk);
+  int tag = 1000;
+
+  for(i = 0; i < MAX; i++)
+    tab[i] = i;
+  
+  if(rk == 1)
+    MPI_Send(tab, MAX, MPI_INT, 0, tag, MPI_COMM_WORLD);
+  else{
+    MPI_Recv(tab, MAX, MPI_INT, 1, tag, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+    int j;
+    for(j = 0; j < MAX; j++)
+      printf("%d\n", tab[j]);
+    }
+    
+  MPI_Finalize();
+
+  return 0;
+}

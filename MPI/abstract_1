@@ -68,3 +68,77 @@ un codequi dure 100s, on a parallélisé 90s de temps d'execution, sur un nombre
 -PCI express : permet de connecter la carte au processeur et au réseau
 si c'est internoeud, on est obliger de passer par le PCI EXPRESS.
 
+
+
+
+*******||||- Communication Bloquantes -||||********
+
+1 - Communication synchrone : mpi_Ssend();
+meme signature que MPI_Send();
+
+2 - Communication Bufferisée :
+copie dans un buffer intérmédiaire de la bib alloué par l'user
+MPI_Buffer_attach ----->  MPI_Buffer_detach
+
+WARNING : ne pas confondre le buffer MPI et le buffer d'envoi
+---------
+
+3 - Communication standard :
+Mixt entre les deux autres, on laisse la bib MPI faire son choix, elle va decider quand passer du bufferisée au synchronisée
+\_____________________________________/
+/ TAILLE DU BUFFER mpi : ENVIRON 32 KO \
+\-------------------------------------/
+explication d l'exemple :
+-Si le N il est siffisement petit, on va etre en mode bufferisé, le mpi va copier le buffer d'envois dans un buffer tamporaire et donc va libérer le send et tout le monde va pouvoir poster le receive
+-Si le N est suppérieur à la bande des 32 KO, le send il va bloquer car on s'autorise plus à faire de copie et tt le monde va etre bloqué dans le "send" 
+
+On a un probléme de fond, dans les implémetations MPI, surtout dans le debug des pg MPI, Comment je vais garantir que mon code que'on testé sur 4 coeurs et avec des petits cas tests va tourner à l'echelle sur mon cluster
+**Une des façon de faire est de remplcer : 
+/*-/ MPI_send   --->   MPI_Ssend :
+peut importe la taille du message meme >32ko.
+
+
+*******||||- Communication Non-Bloquante -||||********
+
+MPI_Isend & MPI_Irecv : MPI_Request -> pour verifier si le message est envoyer ou reçu
+Meme prototype de MOI_SEND et Recv
+sauf que le dernier : PI_Request *req :verifie à posteriori si le message a vraiment été envoyé ou reçu.
+
+-on va utiliser MPI_Wait qui va permettre que la requete a été reçu, Donc MPI_Wait va etre bloquant jusquà ce que la req de communciation soit satisfaite
+_________________________________________/
+MPI_Wait : verifier si la req a été reçu \
+-----------------------------------------/
+les infos relative a la communciation sont retournés par *sta : envoyé pour qui, nb elements ....
+-Au retour de MPI_Wait : *req est afféctée à MPI_REQUEST_NULL
+
+
+MPI_Irecv : meme que MPI_Recv sauf que stat est remplacé par *req
+
+MPI_TEST : voir si une req est satisfaite, il prend trois parametres :
+	 -* *req  : 
+	 -* *flag : retourne vrai si la req est terminée, si *flag == true alors *req est affecté à MOI_REQUEST_NULL et *stat est rempli, si *flah == false alors *req et *sta ne sont pas garantie.
+	 -* *sta  :
+
+Exemple :
+	MPI_Irecv(..............);
+	do{
+		inst1;
+		..
+		inst n;
+
+		MPI_Test(&req, &flag, &sta);
+	} while(!flag);
+
+On va verifier regulierement si le mesage est terminé ou pas
+On sortira de la boucle que lorsque le message aura été reçu.
+
+
+MPI_Wailall : attendre un tableau de requetes
+------------
+l'ordres de terminaisons des req n'est pas important
+remplir un tableau de status sur toutes les req qu'on posté
+
+nb_req : nombre de requetes
+tab_req : le tableau des requetes
+tab_sta : le tableau des status
+
