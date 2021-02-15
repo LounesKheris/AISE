@@ -5,7 +5,7 @@
 ***-*** DESCRIPTEUR DE FICHIER "BAS NIVEAU" ***-***
 Ça permet d'ouvrir un fichier(droit, lire, ecrire);
 
-*Les descripteur de ficheir
+*Les descripteur de fichiers
 -Stdin(0) : entrée standard : STDIN_FILENO
 -Stdout(0): sortie standard : STOUT_FILENO
 -Stderr(0): sortie d'erreur standard : STERR_FILENO
@@ -45,4 +45,46 @@ whence :
 
 Apend : O_APPEND :
 ------------------
-le fichier est ouvert en mode ajout, l'offset du fichier est positionné à la fin, comme si il a fait appel à lssel.
+le fichier est ouvert en mode ajout, l'offset du fichier est positionné à la fin, comme si il a fait appel à lseek.
+
+
+
+************** descripteur de fichier FILE* *******************
+
+fopen : 
+fclose: 
+fread :
+fwrite:
+fgets :
+ftell :
+fseek :
+feof  :
+dileno:
+fdopen:
+
+
+
+*************** Redirection de Flux ***********************
+
+dup2(out, STDOUT_FILENO) : je remplace la sortie standard par le descriipteru de fichier out, dup va d'abord fermer stdout et personne peut ecrire sur stdout 
+
+
+**** Pipe ****
+     ----
+
+pp[1] ===> write
+pp[0] ===> read
+
+
+**************** IPC SYSTEM V ***********************
+
+1 -**- files de messages :
+       -------------------
+permet d'envoyer des message d'un processus A vers un process B
+
+2 -**- Segment de mémoire partagée :
+       -----------------------------
+C'est comme une fenetre en mémoire, on peut avoir deux processus A et B qui paratage une zone mémoire donné qu'on appel ça un "Segment SHM", c'est intéressant d'avoir une fenetre comme ca, au lieu de passer par le réseau ou un fichier, on peut ecrire dans cette zone, et les deux processus soient au courant du contenu de cette zone sans faire de copie.
+
+3 -**- Sémaphore : c'est une primitive de synchronisation, c'est pour paratagé une ressource, 
+ 
