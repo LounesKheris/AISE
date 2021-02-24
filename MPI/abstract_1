@@ -142,3 +142,64 @@ nb_req : nombre de requetes
 tab_req : le tableau des requetes
 tab_sta : le tableau des status
 
+
+***-recevoir un msg de taile qulconque-***
+Quand on fait un Recv, on doit connaitre la borne max du msg a recevoir, des fois on le connait pas, 
+Pour ça, on a le prob: 
+Il contient toute l'enveloppe, le tag, le comm, mais il ne connait pas taille du message
+dnc on va appeller un Iprob, version non bloquante, il va regarder s'il y a un msg qui correspond à la source qu'on a spécifié, tag,
+puis soit il en a, soit il n'en a pas.
+quand c'est oui, il spécifie le status, dedans y a sourcen y a destination et faire getcount qui va renvoyer le nombre d'élément. 
+
+
+
+Recapitulatif : 
+	- appels non Block : permettent d'eviter des deadlocks
+	- toute comm non bloquante doit etre terminée par MPI_Wait/MPI_Test
+	- MPI_Iprobe/prob : permet de recevoir des msgs auto decrit avec MPI
+
+
+
+
+
+
+*************** Opérations Collectives ****************
+		----------------------	
+1- Barriére : int MPI_Barrier(MPI_Comm comm)
+-------------	
+prend en paramétre un comm, c'est une synchro de tous les processus d'un com
+
+2- Broadcast : diffuser une info vers tous les processus
+-------------- int MPI_Bcast(, buf, count, datatype, root, comm)
+root : c'est le processus qui detient la donnée
+Exemple d'utilisation : quand tous les processus doivent lire un seul fichier(pas fichier de maillage), 
+y a un seul processus qui le lit et diffuse à tous les autres 
+
+3- Distribution : scatter 
+----------------
+Envoyer différentes données aux autres processus, mais de la meme taille et meme type
+
+int MPI_Scatter(sendbuf, sendcount, sndtatyp, recvbufn recvcount, rcvtatyp, root, comm)
+- buffer d'envois
+- nombre d'éléments à envoyer
+- type de données à envoyer
+- buffer de reception
+- nombre d'élements à reception
+- type de donnée a reception
+- Une racine 
+- un comm
+
+** La racine va envoyer P*sendcount*sizeof(datatype)
+p : est la taille du comm
+** les elements a envoyer debutent à : sendbuf +p*sendcount, où p : 
+0 <= p <= P : 
+
+
+
+
+
+
+
+
+
+

@@ -84,7 +84,26 @@ permet d'envoyer des message d'un processus A vers un process B
 
 2 -**- Segment de mémoire partagée :
        -----------------------------
-C'est comme une fenetre en mémoire, on peut avoir deux processus A et B qui paratage une zone mémoire donné qu'on appel ça un "Segment SHM", c'est intéressant d'avoir une fenetre comme ca, au lieu de passer par le réseau ou un fichier, on peut ecrire dans cette zone, et les deux processus soient au courant du contenu de cette zone sans faire de copie.
+C'est comme une fenetre en mémoire, on peut avoir deux processus A et B qui paratage une zone mémoire donné qu'on appel ça un "Segment SHM", 
+c'est intéressant d'avoir une fenetre comme ca, au lieu de passer par le réseau ou un fichier, on peut ecrire dans cette zone, 
+et les deux processus soient au courant du contenu de cette zone sans faire de copie.
 
 3 -**- Sémaphore : c'est une primitive de synchronisation, c'est pour paratagé une ressource, 
- 
+
+
+****Lister les ressources IPC créees sur une machine *******
+$> ipcs
+
+**** créer un sémaphore ****
+$> ipcmk -S
+
+-ILs sont gérés au niveau de l'OS, l'idée c'est que plusieurs processus peuvent s y rattacher partageant 
+uniquement une clé et c'est le role de "iftok" de créer cette clée
+
+
+****--- Clefs IPC SYSTEL V ---****
+	------------------
+Le systéme de partage repose sur les clefs : 
+
+- est un entier connu par les processus
+
